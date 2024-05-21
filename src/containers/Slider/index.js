@@ -10,6 +10,7 @@ const Slider = () => {
   const byDateDesc = data?.focus.sort((evtA, evtB) =>
     new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
   );
+
   // Ajout log
   console.log(byDateDesc);
  
@@ -21,6 +22,7 @@ const Slider = () => {
     );
 
   };
+  
   useEffect(() => {
     nextCard();
     // return () => clearTimeout();
