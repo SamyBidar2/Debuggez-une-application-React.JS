@@ -13,11 +13,17 @@ const EventList = () => {
   const { data, error } = useData();
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
+
+  console.log("Type sélectionné:", type);
+  // console.log("Données brutes:", data);
+
   const filteredEvents = (
     (!type
       ? data?.events
-      : data?.events) || []
-  ).filter((event, index) => {
+      : data?.events.filter(event => event.type === type)) || []
+      // ajout du filtre sur event avec event.type = valeur de type
+																  
+  ).filter((events, index) => {
     if (
       (currentPage - 1) * PER_PAGE <= index &&
       PER_PAGE * currentPage > index
@@ -26,12 +32,19 @@ const EventList = () => {
     }
     return false;
   });
+
+  // vérification des éléments filtrés
+  console.log("Événements filtrés:", filteredEvents);
+
   const changeType = (evtType) => {
+    console.log("Type changé à:", evtType);
     setCurrentPage(1);
     setType(evtType);
   };
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
+
+  console.log('typelist : ',typeList);
   return (
     <>
       {error && <div>An error occured</div>}
@@ -44,6 +57,7 @@ const EventList = () => {
             selection={Array.from(typeList)}
             onChange={(value) => (value ? changeType(value) : changeType(null))}
           />
+          
           <div id="events" className="ListContainer">
             {filteredEvents.map((event) => (
               <Modal key={event.id} Content={<ModalEvent event={event} />}>
@@ -62,7 +76,7 @@ const EventList = () => {
           <div className="Pagination">
             {[...Array(pageNumber || 0)].map((_, n) => (
               // eslint-disable-next-line react/no-array-index-key
-              <a key={n} href="#events" onClick={() => setCurrentPage(n + 1)}>
+              <a key={n} href="#events" onClick={() => setCurrentPage(n + 1) }>
                 {n + 1}
               </a>
             ))}
