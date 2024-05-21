@@ -39,6 +39,7 @@ export const DataProvider = ({ children }) => {
         error,
       }}
     >
+
       {children}
     </DataContext.Provider>
   );
@@ -47,6 +48,8 @@ export const DataProvider = ({ children }) => {
 DataProvider.propTypes = {
   children: PropTypes.node.isRequired,
 }
+
+
 
 export const useData = () => useContext(DataContext);
 
