@@ -8,31 +8,6 @@ const mockContactApi = () => new Promise((resolve) => { setTimeout(resolve, 500)
 
 const Form = ({ onSuccess, onError }) => {
   const [sending, setSending] = useState(false);
-  const [name, setName] = useState('');
-  const [lastname, setLastname] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
-
-  const handleNameChange = (e) => {
-    setName(e.target.value);
-    console.log('Name field updated:', e.target.value);
-  };
-
-  const handleLastnameChange = (e) => {
-    setLastname(e.target.value);
-    console.log('Lastname field updated:', e.target.value);
-  };
-
-  const handleEmailChange = (e) => {
-    setEmail(e.target.value);
-    console.log('Email field updated:', e.target.value);
-  };
-
-  const handleMessageChange = (e) => {
-    setMessage(e.target.value);
-    console.log('Message field updated:', e.target.value);
-  };
-
 
   const sendContact = useCallback(
     async (evt) => {
@@ -42,12 +17,9 @@ const Form = ({ onSuccess, onError }) => {
       try {
         await mockContactApi();
         setSending(false);
-        onSuccess({name, lastname, message, email});
+        onSuccess(); // était manquant dans le fichier initial, il permet d'afficher le message
         console.log('Formulaire envoyé avec succès');
-        console.log('Name: ', name);
-        console.log('Lastname: ', lastname);
-        console.log('email: ', email);
-        console.log('message: ', message);
+  
       } catch (err) {
         setSending(false);
         onError(err);
@@ -63,8 +35,8 @@ const Form = ({ onSuccess, onError }) => {
     <form onSubmit={sendContact}>
       <div className="row">
         <div className="col">
-          <Field placeholder="" label="Nom" value={lastname} onChange={handleLastnameChange} />
-          <Field placeholder="" label="Prénom" value={name} onChange={handleNameChange} />
+          <Field placeholder="" label="Nom" />
+          <Field placeholder="" label="Prénom"/>
           <Select
             selection={["Personel", "Entreprise"]}
             onChange={() => null}
@@ -72,7 +44,7 @@ const Form = ({ onSuccess, onError }) => {
             type="large"
             titleEmpty
           />
-          <Field placeholder="" label="Email" value={email} onChange={handleEmailChange} />
+          <Field placeholder="" label="Email"/>
           <Button type={BUTTON_TYPES.SUBMIT} disabled={sending}>
             {sending ? "En cours" : "Envoyer"}
           </Button>
@@ -82,8 +54,6 @@ const Form = ({ onSuccess, onError }) => {
             placeholder="message"
             label="Message"
             type={FIELD_TYPES.TEXTAREA}
-            value={message}
-            onChange={handleMessageChange}
           />
         </div>
       </div>

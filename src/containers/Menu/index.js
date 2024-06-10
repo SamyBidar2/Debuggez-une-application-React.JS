@@ -9,6 +9,7 @@ const Menu = () => (
     <Logo />
     <ul>
       <li>
+        {/* <a href="#nos-services">Nos services</a> */}
         <a href="#nos-services">Nos services</a>
       </li>
       <li>
