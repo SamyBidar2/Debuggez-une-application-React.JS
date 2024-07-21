@@ -13,17 +13,17 @@ const Form = ({ onSuccess, onError }) => {
     async (evt) => {
       evt.preventDefault();
       setSending(true);
-      
+      // We try to call mockContactApi
       try {
         await mockContactApi();
         setSending(false);
-        onSuccess(); // était manquant dans le fichier initial, il permet d'afficher le message
-        console.log('Formulaire envoyé avec succès');
+        onSuccess(); 
+        // console.log('Formulaire envoyé avec succès');
   
       } catch (err) {
         setSending(false);
         onError(err);
-        console.error('Erreur...', err);
+        // console.error('Erreur...', err);
       }
     },
     [onSuccess, onError]

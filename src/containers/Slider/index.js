@@ -10,22 +10,16 @@ const Slider = () => {
   const byDateDesc = data?.focus?.sort((evtA, evtB) =>
     new Date(evtA.date) > new Date(evtB.date) ? -1 : 1
   );
-
-  // Ajout log
-  // console.log(byDateDesc); en ajoutant focus?, on n'a plus le warning '
- 
   
   const nextCard = () => {
     setTimeout(
-      () => setIndex(index < (byDateDesc.length)-1 ? index + 1 : 0),
+      () => setIndex(byDateDesc && (index < (byDateDesc.length)-1) ? index + 1 : 0),
       5000
     );
-
   };
   
   useEffect(() => {
     nextCard();
-    // return () => clearTimeout();
   });
 
   return (

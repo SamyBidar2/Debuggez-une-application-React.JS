@@ -14,7 +14,7 @@ const EventList = () => {
   const [type, setType] = useState();
   const [currentPage, setCurrentPage] = useState(1);
 
-  console.log("Type sélectionné:", type);
+  // console.log("Type sélectionné:", type);
   // console.log("Données brutes:", data);
 
   const filteredEvents = (
@@ -34,17 +34,17 @@ const EventList = () => {
   });
 
   // vérification des éléments filtrés
-  console.log("Événements filtrés:", filteredEvents);
+  // console.log("Événements filtrés:", filteredEvents);
 
   const changeType = (evtType) => {
-    console.log("Type changé à:", evtType);
+    // console.log("Type changé à:", evtType);
     setCurrentPage(1);
     setType(evtType);
   };
   const pageNumber = Math.floor((filteredEvents?.length || 0) / PER_PAGE) + 1;
   const typeList = new Set(data?.events.map((event) => event.type));
 
-  console.log('typelist : ',typeList);
+  // console.log('typelist : ',typeList);
   return (
     <>
       {error && <div>An error occured</div>}
